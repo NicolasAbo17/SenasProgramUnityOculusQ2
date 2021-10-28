@@ -16,8 +16,14 @@ public class GestureDetector : MonoBehaviour
     [SerializeField] private float threshold = 0.1f;
     [SerializeField] private OVRSkeleton skeleton;
     [SerializeField] private List<Gesture> gestures;
+    [SerializeField] private LetterGesture[] letterGestures;
     [SerializeField] private bool debugMode = true;
+    [SerializeField] private KeyCode keycode;
     private List<OVRBone> fingerBones;
+
+    public char last = 'I';
+
+    private Gesture emptyGesture;
     private Gesture previousGesture;
 
     // Start is called before the first frame update
@@ -25,21 +31,25 @@ public class GestureDetector : MonoBehaviour
     {
         fingerBones = new List<OVRBone>(skeleton.Bones);
         previousGesture = new Gesture();
+        emptyGesture = new Gesture();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(debugMode && Input.GetKeyDown(KeyCode.Space))
+        if (debugMode && Input.GetKeyDown(keycode))
         {
+            Debug.Log("Saving");
+            fingerBones = new List<OVRBone>(skeleton.Bones);
             Save();
         }
 
         Gesture currentGesture = Recognize();
-        bool hasRecognized = !currentGesture.Equals(new Gesture());
+        bool hasRecognized = !currentGesture.Equals(emptyGesture);
 
-        if(hasRecognized && currentGesture.Equals(previousGesture))
+        if(hasRecognized && !currentGesture.Equals(previousGesture))
         {
+            Debug.Log("New gesture found: " + currentGesture.name);
             previousGesture = currentGesture;
             currentGesture.onRecognized.Invoke();
         }
@@ -48,7 +58,7 @@ public class GestureDetector : MonoBehaviour
     void Save()
     {
         Gesture g = new Gesture();
-        g.name = "New Gesture";
+        g.name = "" + last;
         List<Vector3> data = new List<Vector3>();
         foreach (var bone in fingerBones)
         {
@@ -58,11 +68,14 @@ public class GestureDetector : MonoBehaviour
 
         g.fingerDatas = data;
         gestures.Add(g);
+
+        last++;
+        Debug.Log(last);
     }
 
     Gesture Recognize()
     {
-        Gesture currentgesture = new Gesture();
+        Gesture currentgesture = emptyGesture;
         float currentMin = Mathf.Infinity;
 
         foreach (var gesture in gestures)

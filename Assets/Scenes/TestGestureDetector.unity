@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9631efda68441a418cb63499563f1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: 0.02
+  threshold: 0.03
   skeleton: {fileID: 843552111}
   gestures:
   - name: A

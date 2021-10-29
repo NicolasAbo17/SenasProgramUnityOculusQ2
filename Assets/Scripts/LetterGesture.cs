@@ -6,6 +6,5 @@ public class LetterGesture
 {
     public string name;
     public List<Vector3> fingerDatas;
-    public UnityEvent onRecognized;
 
 }

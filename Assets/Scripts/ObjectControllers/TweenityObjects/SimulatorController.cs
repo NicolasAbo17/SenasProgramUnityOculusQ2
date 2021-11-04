@@ -15,7 +15,7 @@ public class SimulatorController : MonoBehaviour
     // Internal
     private int actualLetter;
     private bool isLearning;
-    [HideInInspector]
+
     public List<Gesture> gestures;
     private float points = 0f;
 
@@ -52,6 +52,8 @@ public class SimulatorController : MonoBehaviour
         }
 
         actualLetter = -1;
+        /*
+        // SOLO EN PC FUNCIONA, UTILIZARLO PARA DESARROLLO, LOS GESTOS DEBEN ESTAR GUARDADOS EN LA ESCENA PARA SU RESPECTIVO BUILD EN OCULUS
         if (isTest)
         {
             gestures = FileHandler.ReadListFromJSON<Gesture>("Assets/Resources/Gestures/testLetters.json");
@@ -59,9 +61,10 @@ public class SimulatorController : MonoBehaviour
         else
         {
             gestures = FileHandler.ReadListFromJSON<Gesture>("Assets/Resources/Gestures/letters.json");
-        }
+        }*/
         gestureDetector.enabled = true;
-        
+
+
         DontDestroyOnLoad(gameObject);
     }
 

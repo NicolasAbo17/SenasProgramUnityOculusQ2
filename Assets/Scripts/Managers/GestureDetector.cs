@@ -11,6 +11,7 @@ public struct Gesture
 {
     public char name;
     public List<Vector3> fingerDatas;
+    public float threshold;
 }
 
 public class GestureDetector : MonoBehaviour
@@ -18,8 +19,6 @@ public class GestureDetector : MonoBehaviour
     // How much accurate the recognize should be
     private float threshold = 0.1f;
     
-    [Header("Initial Threshold value")]
-    public float initialThreshold;
     [Header("Recognition Threshold value")]
     public float recognitionThreshold;
 
@@ -53,7 +52,7 @@ public class GestureDetector : MonoBehaviour
 
     void Start()
     {
-        threshold = initialThreshold;
+        threshold = gestureRecognizing.threshold;
         timeRecognizing = totalTime;
         StartCoroutine(DelayRoutine(2.5f, Initialize));
     }
@@ -112,7 +111,7 @@ public class GestureDetector : MonoBehaviour
                 if (done)
                 {
                     notRecognize?.Invoke();
-                    threshold = initialThreshold;
+                    threshold = gestureRecognizing.threshold;
                     timeRecognizing = totalTime;
 
                     done = false;
@@ -167,7 +166,7 @@ public class GestureDetector : MonoBehaviour
 
     public void SetRecognizing()
     {
-        threshold = initialThreshold;
+        threshold = gestureRecognizing.threshold;
         timeRecognizing = totalTime;
         isRecognizing = true;
     }

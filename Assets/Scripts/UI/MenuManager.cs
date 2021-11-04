@@ -11,6 +11,9 @@ public class MenuManager : MonoBehaviour
     private GameObject descriptionMenu;
 
     [SerializeField]
+    private GameObject warningMenu;
+
+    [SerializeField]
     private GameObject letterMenu;
 
     [SerializeField]
@@ -36,6 +39,11 @@ public class MenuManager : MonoBehaviour
     public void ToggleDescriptionMenu()
     {
         descriptionMenu.SetActive(!descriptionMenu.activeInHierarchy);
+    }
+
+    public void ToggleWarningMenu()
+    {
+        warningMenu.SetActive(!warningMenu.activeInHierarchy);
     }
 
     public void ToggleLetterMenu()

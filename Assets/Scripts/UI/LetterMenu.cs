@@ -59,4 +59,10 @@ public class LetterMenu : MonoBehaviour
         isCounting = false;
         timeTxt.GetComponent<TextMeshProUGUI>().text = "";
     }
+
+    public void Reset()
+    {
+        letterTxt.SetActive(false);
+        letterImg.SetActive(false);
+    }
 }

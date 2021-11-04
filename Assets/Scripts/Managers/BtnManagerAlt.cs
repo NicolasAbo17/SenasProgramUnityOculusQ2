@@ -63,4 +63,12 @@ public class BtnManagerAlt : MonoBehaviour
             ActiveAnimation();
         }
     }
+
+    private void OnEnable()
+    {
+        _touched = false;
+        _activated = false;
+        animator = GetComponent<Animator>();
+        animator.SetBool("pressed", _activated);
+    }
 }

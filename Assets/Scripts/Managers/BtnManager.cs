@@ -55,8 +55,9 @@ public class BtnManager : MonoBehaviour
         {
             _touched = true;
             Touched();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
             _touched = false;
+            ActiveAnimation();
         }
     }
 

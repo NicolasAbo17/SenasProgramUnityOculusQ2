@@ -30,7 +30,7 @@ Las manos de referencia van a realizar una letra del alfabeto y se va a mostrar 
 Options.ToggleContinueBtns()
 Options.ToggleBigPanel()
 Options.ToggleSmallPanel()
-Menu.ToggleDescriptionMenu()
+Menu.ToggleWarningMenu()
 Menu.ToggleLetterMenu()
 Simulator.StartRecognizing()
 Simulator.ShowNextLetter()
@@ -70,25 +70,29 @@ Options.ToggleInitialBtns()
 :: BtnLearning.Touched():Seleccionar empezar entrenamiento[multipleChoice]
 Se le muestra al usuario un mensaje explicándole que se le va a mostrar la primera letra del alfabeto. Se le informa al usuario que debe realizar el gesto que represente esa letra.
 @
-[[BtnContinue.Touched():Mostrar Letra]]
+[[BtnContinue.Touched():Mostrar Advertencia]]
 {
 BtnContinue.Touched()
 }
 <
 Simulator.SetLearning()
 Simulator.StartRecognizing()
+Menu.ToggleDescriptionMenu()
+Menu.ToggleWarningMenu()
 >
 
 :: BtnTraining.Touched():Empezar práctica[multipleChoice]
 Se le muestra al usuario un mensaje explicándole que se le va a mostrar una letra al azar del alfabeto. Se le informa al usuario que debe realizar el gesto que represente esa letra.
 @
-[[BtnContinue.Touched():Mostrar Letra]]
+[[BtnContinue.Touched():Mostrar Advertencia]]
 {
 BtnContinue.Touched()
 }
 <
 Simulator.SetTraining()
 Simulator.StartRecognizing()
+Menu.ToggleDescriptionMenu()
+Menu.ToggleWarningMenu()
 >
 
 :: Simulator.ShowScore():Mostrar puntaje[multipleChoice]
@@ -112,6 +116,8 @@ La aplicacion se cierra
 {
 }
 <
+Options.ToggleContinueBtns()
+Menu.ToggleDescriptionMenu()
 Simulator.Quit()
 >
 
@@ -131,5 +137,15 @@ Options.ToggleInitialBtns()
 Options.ToggleContinueBtns()
 Menu.ToggleInitialMenu()
 Menu.ToggleDescriptionMenu()
+>
+
+:: BtnContinue.Touched():Mostrar Advertencia[multipleChoice]
+Se muestra una advertencia sobre ciertos gestos y su uso en la vida real
+@
+[[BtnContinue.Touched():Mostrar Letra]]
+{
+BtnContinue.Touched()
+}
+<
 >
 

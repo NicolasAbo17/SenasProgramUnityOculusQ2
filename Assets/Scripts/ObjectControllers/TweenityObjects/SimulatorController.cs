@@ -27,6 +27,9 @@ public class SimulatorController : MonoBehaviour
     [SerializeField]
     private GestureDetector gestureDetector;
 
+    // IsTest
+    public bool isTest = false;
+
     private static SimulatorController _instance;
     public static SimulatorController Instance
     {
@@ -49,8 +52,14 @@ public class SimulatorController : MonoBehaviour
         }
 
         actualLetter = -1;
-        gestures = FileHandler.ReadListFromJSON<Gesture>("Assets/Resources/Gestures/testLetters.json");
-
+        if (isTest)
+        {
+            gestures = FileHandler.ReadListFromJSON<Gesture>("Assets/Resources/Gestures/testLetters.json");
+        }
+        else
+        {
+            gestures = FileHandler.ReadListFromJSON<Gesture>("Assets/Resources/Gestures/letters.json");
+        }
         gestureDetector.enabled = true;
         
         DontDestroyOnLoad(gameObject);
@@ -92,14 +101,16 @@ public class SimulatorController : MonoBehaviour
             gestures[i] = gestures[randomIndex];
             gestures[randomIndex] = temp;
         }
-
+        Debug.Log("Training");
     }
 
     public void SetLearning()
     {
-        gestures.Sort((g1, g2) => g1.name.CompareTo(g2.name));
         isLearning = true;
+        gestures.Sort((g1, g2) => g1.name.CompareTo(g2.name));
+        Debug.Log("Learning");
     }
+
     public void StartRecognizing()
     {
         gestureDetector.enabled = true;
@@ -125,6 +136,8 @@ public class SimulatorController : MonoBehaviour
         else
         {
             Debug.Log("Finish");
+            actualLetter = -1;
+            letterMenu.Reset();
             if (isLearning)
             {
                 EndExercise();
@@ -133,6 +146,8 @@ public class SimulatorController : MonoBehaviour
             {
                 ShowScore();
             }
+
+            points = 0;
         }
 
         /*if (actualLetter > gestures.Count)
@@ -164,6 +179,7 @@ public class SimulatorController : MonoBehaviour
 
     public void Quit()
     {
+        Debug.Log("Quit");
         Application.Quit();
     }
 

@@ -1,0 +1,150 @@
+:: StoryTitle
+Uso app señas
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Observar manos y menú[START]
+El usuario observa las manos de referencia de la aplicación que replican sus propios movimientos, además de un menú con las opciones entrenamiento y práctica o salir del juego
+@
+Este es un ejemplo de diálogo con varias posibles respuestas de usuario. 
+¿Qué entrenar o quiere practicar o salir del juego?
+[[Seleccionar modo]]
+{}
+<
+Simulator.OpenDialogueViewer()
+>
+
+:: timeout: Mostrar una letra
+Las manos de referencia van a realizar una letra del alfabeto y se va a mostrar que letra es en una interfaz.
+@
+[[Replicar el gesto]]
+{
+}
+<
+Simulator.showNextLetter()	
+Simulator.CloseDialogueViewer()
+BtnsManager.ShowButton("button1";true)
+BtnsManager.ShowButton("button1";true)
+>
+
+:: Replicar el gesto[multipleChoice]
+El usuario replica el gesto correspondiente a la letra mostrada. Si el usuario lo desea puede saltar esa letra.
+@
+[[BtnTutorial.Touched():Saltar Letra]]
+[[BtnTutorial2.Touched():Mantener el gesto]]
+{
+BtnTutorial.Touched()
+BtnTutorial2.Touched()
+}
+<
+BtnsManager.ShowButton("button1";false)
+BtnsManager.ShowButton("button2";false)
+>
+
+:: Aceptar e iniciar
+Se le muestra una cuenta regresiva de 5 segundos antes de que empiece
+@
+[[timeout: Mostrar una letra]]
+{}
+<
+Simulator.startExercise()
+Simulator.TimeOut(5)
+>
+
+:: BtnTutorial2.Touched():Mantener el gesto[TimeOut]
+El usuario debe mantener el gesto aproximadamente 3-5 segundos para que el sistema verifique que el gesto se asemeja al deseado, si no corresponde sale un error de que ese gesto no es el deseado y vuelve al paso anterior
+@
+[[Replicar el gesto]]
+[[Termina ejercicio de la letra]]
+{
+	usuario.mantenerGesto(3)
+}
+<
+Simulator.displayLoadingTime(3)
+>
+
+:: Termina ejercicio de la letra
+Se termina el ejercicio de la letra y se le muestra un mensaje al usuario de que se va a mostrar la siguiente letra. Cuándo se hayan imitado las 25 letras del alfabeto se mostrará la opción para terminar el ejercicio.
+@
+[[Se terminó el ejercicio]]
+[[Mostrar puntaje]]
+[[timeout: Mostrar una letra]]
+{
+	Simulator.decidirSiguienteCamino()
+}
+<>
+
+:: Se terminó el ejercicio
+Cuándo el usuario termina el alfabeto o probó todas las letras del alfabeto, se le muestra una opción para salir y terminaría el ejercicio
+@
+[[Seleccionar modo]]
+{
+
+}
+<>
+
+:: Seleccionar empezar entrenamiento[dialogue]
+Se le muestra al usuario un mensaje explicándole que se le va a mostrar la primera letra del alfabeto. Se le informa al usuario que debe realizar el gesto que represente esa letra.
+@
+[[Aceptar e iniciar]]
+{
+}
+<
+Simulator.setTraining()
+Simulator.InitializeAudiosDirectory("TweenityInstructions")
+Simulator.Wait(2)
+Simulator.Play("InstruccionInicial")
+Simulator.OpenDialogueViewer()
+>
+
+:: Seleccionar empezar práctica[dialogue]
+Se le muestra al usuario un mensaje explicándole que se le va a mostrar una letra al azar del alfabeto. Se le informa al usuario que debe realizar el gesto que represente esa letra.
+@
+[[Aceptar e iniciar]]
+{}
+<
+Simulator.setTraining()
+Simulator.InitializeAudiosDirectory("TweenityInstructions")
+Simulator.Wait(2)
+Simulator.Play("InstruccionInicial")
+Simulator.OpenDialogueViewer()
+>
+
+:: BtnTutorial.Touched():Saltar Letra
+La letra se salta y cuenta como un punto negativo para el usuario
+@
+[[Termina ejercicio de la letra]]
+{}
+<
+simulator.aumentarLetraActual()
+>
+
+:: Mostrar puntaje
+Se le muestra el puntaje según el número de letras que el usuario pudo representar. Este puntaje es la división de cada imitación correcta, dividido 25. Luego terminaría el ejercicio.
+@
+[[Se terminó el ejercicio]]
+{}
+<>
+
+:: Cerrar aplicacion[END]
+La aplicacion se cierra
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(red)
+>
+
+:: Seleccionar modo[dialogue]
+Aqui se le muestra al usuario las posibles opciones que tiene para llevar a cabo el entrenamiento
+@
+[[Seleccionar empezar entrenamiento]]
+[[Seleccionar empezar práctica]]
+[[Cerrar aplicacion]]
+{}
+<>
+

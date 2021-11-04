@@ -1,0 +1,155 @@
+:: StoryTitle
+Uso app señas
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Observar manos y menú[START]
+El usuario observa las manos de referencia de la aplicación que replican sus propios movimientos, además de un menú con las opciones entrenamiento y práctica o salir del juego
+@
+Este es un ejemplo de diálogo con varias posibles respuestas de usuario. 
+¿Qué entrenar o quiere practicar o salir del juego?
+[[Seleccionar modo]]
+{}
+<
+Simulator.Wait(3)
+Menu.ToggleInitialMenu()
+Options.ToggleInitialBtns()
+>
+
+:: BtnContinue.Touched():Mostrar Letra
+Las manos de referencia van a realizar una letra del alfabeto y se va a mostrar que letra es en una interfaz.
+@
+[[Realizar gesto de la letra actual]]
+{
+}
+<
+Options.ToggleContinue()
+Options.ToggleBigPanel()
+Options.ToggleSmallPanel()
+Menu.ToggleDescriptionMenu()
+Menu.ToggleLetterMenu()
+Simulator.StartRecognizing()
+Simulator.ShowNextLetter()
+>
+
+:: Realizar gesto de la letra actual[multipleChoice]
+El usuario replica el gesto correspondiente a la letra mostrada. Si el usuario lo desea puede saltar esa letra oprimiendo el boton para saltar. Si ya no hay letras se termina el ejercicio
+@
+[[BtnSkip.Touched():Saltar letra]]
+[[Simulator.RecognizeLetter():Reconocer letra]]
+[[Simulator.FinishActivity(): Termina ejercicio de la letra tem]]
+{
+BtnSkip.Touched()
+Simulator.RecognizeLetter()
+Simulator.FinishActivity()
+}
+<
+>
+
+:: Simulator.Finish(): Termina ejercicio de la letra
+Se termina el ejercicio de la letra y se le muestra un mensaje al usuario de que se va a mostrar la siguiente letra. Cuándo se hayan imitado las 25 letras del alfabeto se mostrará la opción para terminar el ejercicio.
+@
+[[Se terminó el ejercicio]]
+[[Mostrar puntaje]]
+{
+Simulator.decidirSiguienteCamino()
+}
+<>
+
+:: Se terminó el ejercicio
+Cuándo el usuario termina el alfabeto o probó todas las letras del alfabeto, se le muestra una opción para salir y terminaría el ejercicio
+@
+[[Seleccionar modo]]
+{
+
+}
+<>
+
+:: BtnLearning.Touched():Seleccionar empezar entrenamiento[multipleChoice]
+Se le muestra al usuario un mensaje explicándole que se le va a mostrar la primera letra del alfabeto. Se le informa al usuario que debe realizar el gesto que represente esa letra.
+@
+[[BtnContinue.Touched():Mostrar Letra]]
+{
+BtnContinue.Touched()
+}
+<
+Simulator.StartRecognizing()
+>
+
+:: BtnTraining.Touched():Empezar práctica[multipleChoice]
+Se le muestra al usuario un mensaje explicándole que se le va a mostrar una letra al azar del alfabeto. Se le informa al usuario que debe realizar el gesto que represente esa letra.
+@
+[[BtnContinue.Touched():Mostrar Letra]]
+{
+BtnContinue.Touched()
+}
+<
+Simulator.StartRecognizing()
+>
+
+:: Mostrar puntaje
+Se le muestra el puntaje según el número de letras que el usuario pudo representar. Este puntaje es la división de cada imitación correcta, dividido 25. Luego terminaría el ejercicio.
+@
+[[Se terminó el ejercicio]]
+{}
+<>
+
+:: BtnExit.Touched(): Cerrar aplicacion[END]
+La aplicacion se cierra
+@
+[[X]]
+{}
+<
+>
+
+:: Seleccionar modo[multipleChoice]
+Aqui se le muestra al usuario las posibles opciones que tiene para llevar a cabo el entrenamiento
+@
+[[BtnLearning.Touched():Seleccionar empezar entrenamiento]]
+[[BtnTraining.Touched():Empezar práctica]]
+[[BtnExit.Touched(): Cerrar aplicacion]]
+{
+BtnLearning.Touched()
+BtnTraining.Touched()
+BtnExit.Touched()
+}
+<
+Options.ToggleInitialBtns()
+Options.ToggleContinueBtns()
+Menu.ToggleInitialMenu()
+Menu.ToggleDescriptionMenu()
+>
+
+:: BtnSkip.Touched():Saltar letra
+El entrenador pasa a la siguiente letra
+@
+[[Realizar gesto de la letra actual]]
+{
+}
+<
+Simulator.ShowNextLetter()
+>
+
+:: Simulator.RecognizeLetter():Reconocer letra
+El sistema recononce que el usuario imito la letra y se le suma un punto
+@
+[[Realizar gesto de la letra actual]]
+{
+}
+<
+Simulator.ShowNextLetter()
+>
+
+:: Simulator.FinishActivity(): Termina ejercicio de la letra tem[END]
+La aplicacion se cierra
+@
+[[X]]
+{}
+<
+Menu.TogglePointMenu()
+>
+

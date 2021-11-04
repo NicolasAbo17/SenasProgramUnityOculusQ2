@@ -17,11 +17,13 @@ public class SimulatorController : MonoBehaviour
     private bool isLearning;
     [HideInInspector]
     public List<Gesture> gestures;
-    private int points = 0;
+    private float points = 0f;
 
     // External
     [SerializeField]
     private LetterMenu letterMenu;
+    [SerializeField]
+    private ScoreMenu scoreMenu;
     [SerializeField]
     private GestureDetector gestureDetector;
 
@@ -95,6 +97,7 @@ public class SimulatorController : MonoBehaviour
 
     public void SetLearning()
     {
+        gestures.Sort((g1, g2) => g1.name.CompareTo(g2.name));
         isLearning = true;
     }
     public void StartRecognizing()
@@ -104,16 +107,32 @@ public class SimulatorController : MonoBehaviour
 
     public void ShowNextLetter()
     {
-        if(actualLetter < gestures.Count)
+        actualLetter++; 
+        if (actualLetter < gestures.Count)
         {
-            actualLetter++;
-            letterMenu.ShowLetter(gestures[actualLetter].name);
+            Debug.Log("Next " + gestures[actualLetter].name);
+            if (isLearning)
+            {
+                letterMenu.ShowImage(gestures[actualLetter].name);
+            }
+            else
+            {
+                letterMenu.ShowLetter(gestures[actualLetter].name);
+            }
             gestureDetector.gestureRecognizing = gestures[actualLetter];
             gestureDetector.SetRecognizing();
         }
         else
         {
-            FinishActivity();
+            Debug.Log("Finish");
+            if (isLearning)
+            {
+                EndExercise();
+            }
+            else
+            {
+                ShowScore();
+            }
         }
 
         /*if (actualLetter > gestures.Count)
@@ -124,14 +143,28 @@ public class SimulatorController : MonoBehaviour
 
     public void RecognizeLetter()
     {
-        GameObject.Find("SimulationController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "RecognizeLetter", ""));
-        letterMenu.StopCountdown();
         points++;
+        letterMenu.StopCountdown();
+        ShowNextLetter();
     }
 
-    public void FinishActivity()
+    public void ShowScore()
     {
-        GameObject.Find("SimulationController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "FinishActivity", ""));
+        scoreMenu.SetTitle("Tu puntación fue de:");
+        scoreMenu.ShowScore(points + "/" + gestures.Count);
+        GameObject.Find("SimulationController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "ShowScore", ""));
+    }
+
+    public void EndExercise()
+    {
+        scoreMenu.SetTitle("Practicaste correctamente este número de letras:");
+        scoreMenu.ShowScore(points + " / " + gestures.Count);
+        GameObject.Find("SimulationController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "EndExercise", ""));
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     public int GetTimeLeft()

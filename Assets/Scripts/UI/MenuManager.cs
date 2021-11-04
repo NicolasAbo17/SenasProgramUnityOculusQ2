@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     private GameObject letterMenu;
 
     [SerializeField]
-    private GameObject pointMenu;
+    private GameObject scoreMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -43,8 +43,8 @@ public class MenuManager : MonoBehaviour
         letterMenu.SetActive(!letterMenu.activeInHierarchy);
     }
 
-    public void TogglePointMenu()
+    public void ToggleScoreMenu()
     {
-        pointMenu.SetActive(!pointMenu.activeInHierarchy);
+        scoreMenu.SetActive(!scoreMenu.activeInHierarchy);
     }
 }

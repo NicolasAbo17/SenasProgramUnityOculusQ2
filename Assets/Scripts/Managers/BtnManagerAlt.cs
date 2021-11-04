@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class BtnManager : MonoBehaviour
+public class BtnManagerAlt : MonoBehaviour
 {
     private Animator animator;
 
@@ -13,6 +14,8 @@ public class BtnManager : MonoBehaviour
 
     public AudioClip soundDownEnabled;
     public AudioClip soundDownDisabled;
+
+    public UnityEvent OnTouched;
 
     void Start()
     {
@@ -41,7 +44,7 @@ public class BtnManager : MonoBehaviour
     public void Touched()
     {
         ActiveAnimation();
-        GameObject.Find("SimulationController").GetComponent<SimulationController>().VerifyUserAction(new SimulationObject.Action(gameObject.name, "Touched",""));
+        OnTouched?.Invoke();
     }
 
 
@@ -55,16 +58,9 @@ public class BtnManager : MonoBehaviour
         {
             _touched = true;
             Touched();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
             _touched = false;
+            ActiveAnimation();
         }
-    }
-
-    private void OnEnable()
-    {
-        _touched = false;
-        _activated = false;
-        animator = GetComponent<Animator>();
-        animator.SetBool("pressed", _activated);
     }
 }

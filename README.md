@@ -5,9 +5,17 @@ Este es demo de realidad virtual para la clase de Realidad Mixta de la Universid
 
 Para la practica del alfabeto se tienen dos modos: 
 
+![Instrucciones del entrenador](https://github.com/NicolasAbo17/SenasProgramUnityOculusQ2/blob/master/instrucciones.png)
+![Advertencia del entrenador](https://github.com/NicolasAbo17/SenasProgramUnityOculusQ2/blob/master/advertencia.png)
+
 El modo entrenador/practica (botón verde) -> Muestra como hacer cada gesto para cada letra. El usuario deberá usar su mano derecha para imitar estos gestos. Cuando el programa detecte un gesto igual o muy similar al pedido, se empezara a contar 5 segundos para “aprobar” el gesto. Por cada gesto correcto se dará un punto. Si el usuario desea saltar a la siguiente letra, en la parte izquierda encuentran un botón amarillo que cambiara a la siguiente letra sin sumar ningún punto.
 
+![modo de entrenador](https://github.com/NicolasAbo17/SenasProgramUnityOculusQ2/blob/master/entrenamiento.png)
+
 El modo prueba (botón azul) -> Pretende medir el aprendizaje del alfabeto practicado en el modo entrenador. En esta modo se muestran las letras que el usuario debe representar con la seña correspondiente. Si la seña se representa correctamente, se sumara un punto. Si no recuerda la seña y desea seguir con la otra letras, también esta la opción de saltar a la siguiente con el botón amarillo. 
+
+![modo de prueba](https://github.com/NicolasAbo17/SenasProgramUnityOculusQ2/blob/master/practica.png)
+![saltar letras en el modo de prueba y practica](https://github.com/NicolasAbo17/SenasProgramUnityOculusQ2/blob/master/saltar.png)
 
 Hay dos letras, la S y la Z, que en la practica de la vida real se realizan con algún movimiento. Pero, para efectos prácticos del demo, solo se reconocerá el gesto inicial que se muestre en la imagen alusiva. Sin embargo, en dichas imágenes se mostrara el movimiento que se debería hacer con cada gesto para ponerlo en practica.
 

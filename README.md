@@ -43,7 +43,7 @@ Finalmente, cuando se desee terminar con el juego, esta el botón rojo que reali
 Nota: Si se quiere hacer una prueba rápida, en el Simulator Controller hay una opción de isTest que carga únicamente 5 letras para probar. Solo debe chequear la casilla y ya puede probarlo como test. 
 
 ### Instrucciones de uso del apk
-1.	Verificar que en configuración Dispositivos  manos y controladores  activar la opción seguimiento de manos 
+1.	Verificar que en configuración -> Dispositivos -> manos y controladores,  activar la opción seguimiento de manos 
 
 2.	Al instalar el APK va a aparecer en la pestaña orígenes desconocidos, esto lo puedes activar utilizando el UI de Oculus para la pagina de aplicaciones 
 

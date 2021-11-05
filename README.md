@@ -5,9 +5,9 @@ Este es demo de realidad virtual para la clase de Realidad Mixta de la Universid
 
 Para la practica del alfabeto se tienen dos modos: 
 
-El modo entrenador/practica (botón verde)  Muestra como hacer cada gesto para cada letra. El usuario deberá usar su mano derecha para imitar estos gestos. Cuando el programa detecte un gesto igual o muy similar al pedido, se empezara a contar 5 segundos para “aprobar” el gesto. Por cada gesto correcto se dará un punto. Si el usuario desea saltar a la siguiente letra, en la parte izquierda encuentran un botón amarillo que cambiara a la siguiente letra sin sumar ningún punto.
+El modo entrenador/practica (botón verde) -> Muestra como hacer cada gesto para cada letra. El usuario deberá usar su mano derecha para imitar estos gestos. Cuando el programa detecte un gesto igual o muy similar al pedido, se empezara a contar 5 segundos para “aprobar” el gesto. Por cada gesto correcto se dará un punto. Si el usuario desea saltar a la siguiente letra, en la parte izquierda encuentran un botón amarillo que cambiara a la siguiente letra sin sumar ningún punto.
 
-El modo prueba (botón azul)  Pretende medir el aprendizaje del alfabeto practicado en el modo entrenador. En esta modo se muestran las letras que el usuario debe representar con la seña correspondiente. Si la seña se representa correctamente, se sumara un punto. Si no recuerda la seña y desea seguir con la otra letras, también esta la opción de saltar a la siguiente con el botón amarillo. 
+El modo prueba (botón azul) -> Pretende medir el aprendizaje del alfabeto practicado en el modo entrenador. En esta modo se muestran las letras que el usuario debe representar con la seña correspondiente. Si la seña se representa correctamente, se sumara un punto. Si no recuerda la seña y desea seguir con la otra letras, también esta la opción de saltar a la siguiente con el botón amarillo. 
 
 Hay dos letras, la S y la Z, que en la practica de la vida real se realizan con algún movimiento. Pero, para efectos prácticos del demo, solo se reconocerá el gesto inicial que se muestre en la imagen alusiva. Sin embargo, en dichas imágenes se mostrara el movimiento que se debería hacer con cada gesto para ponerlo en practica.
 
@@ -16,7 +16,7 @@ Finalmente, cuando se desee terminar con el juego, esta el botón rojo que reali
 ### Instrucciones para desarrollo
 1.	Clone el proyecto.  Git clone https://github.com/NicolasAbo17/SenasProgramUnityOculusQ2.git
 
-2.	Abra Unity Hub  Add, Seleccione el proyecto clonado anteriormente
+2.	Abra Unity Hub -> Add, Seleccione el proyecto clonado anteriormente
 
 3.	Seleccionar la versión de Unity(2019.3.24f1) y abra el proyecto 
 
